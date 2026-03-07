@@ -28,7 +28,7 @@ jobs:
           
           # Create and switch to a 'data' branch if it doesn't exist
           git checkout -B data
-          git add reddit-data.json
+          git add reddit-data.xml
           git commit -m "update: reddit data $(date)"
           # Push specifically to the data branch
           git push origin data --force
