@@ -18,7 +18,7 @@ jobs:
         run: |
           # We use a standard browser User-Agent to stay under the radar
           curl -H "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64)" \
-          -L "https://www.reddit.com/r/YOUR_SUBREDDIT/top/.rss?t=day" \
+          -L "https://www.reddit.com/r/besmos/top/.rss?t=day" \
           -o reddit-data.xml
 
       - name: Commit and Push to Data Branch
