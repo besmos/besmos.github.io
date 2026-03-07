@@ -21,11 +21,14 @@ jobs:
           -L "https://www.reddit.com/r/YOUR_SUBREDDIT/top/.rss?t=day" \
           -o reddit-data.xml
 
-      - name: Commit and Push
+      - name: Commit and Push to Data Branch
         run: |
           git config --global user.name "github-actions[bot]"
-          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # Create and switch to a 'data' branch if it doesn't exist
+          git checkout -B data
           git add reddit-data.json
-          # Use --amend to keep overwriting the last 'bot' commit
-          git commit --amend -m "chore: update reddit data [skip ci]" || git commit -m "chore: update reddit data [skip ci]"
-          git push --force
+          git commit -m "update: reddit data $(date)"
+          # Push specifically to the data branch
+          git push origin data --force
