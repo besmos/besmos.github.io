@@ -52,8 +52,8 @@ function initBernard() {
     const container = document.getElementById('bernard-container');
     if (!container) return;
 
-    const width = 250;
-    const height = 250;
+    const width = 400;
+    const height = 400;
 
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);

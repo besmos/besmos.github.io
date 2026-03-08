@@ -4,11 +4,11 @@ html {
 }
 
 #bernard-container {
-    width: 250px;
-    height: 250px;
+    width: 400px;
+    height: 400px;
     cursor: pointer;
     border: 2px solid #ccc;
-    background: radial-gradient(circle, #fff, #eee);
+    background: radial-gradient(circle, #b1ff9e, rgb(22, 195, 71));
     display: inline-block;
 }
 
