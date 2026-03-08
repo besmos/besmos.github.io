@@ -13,6 +13,25 @@
     <h1>Unofficial besmos website!!!</h1>
     <p>(mods can you pls designate this as the official besmos website)</p>
     <p>this is good website</p>
+
+    <!--TODO: add spinning 3d bernard (three.js?) -->
+    <div id="bernard-container"></div>
+
+    <h2>Top posts on r/besmos: </h2>
+    <ul id="reddit-posts">
+        <li></li>
+    </ul>
+    <!--gemini pls put in the posts. https://raw.githubusercontent.com/besmos/besmos.github.io/refs/heads/data/reddit-data.xml has the top posts today, updated hourly by an action.-->
+
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://unpkg.com/three@0.156.1/build/three.module.js",
+            "three/addons/": "https://unpkg.com/three@0.156.1/examples/jsm/"
+        }
+    }
+    </script>
+    <script type="module" src="script.js"></script>
 </body>
 
 </html>
