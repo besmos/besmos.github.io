@@ -1,8 +1,57 @@
 html {
     font-family: "Inter", sans-serif;
+    background-color: #fafbfc;
 }
 
 #bernard-container {
-    width: 200px;
-    height: 200px;
+    width: 250px;
+    height: 250px;
+    cursor: pointer;
+    border: 2px solid #ccc;
+    background: radial-gradient(circle, #fff, #eee);
+    display: inline-block;
+}
+
+#official-badge {
+    background-color: yellow;
+    color: red;
+    font-weight: 900;
+    border: 3px double red;
+    display: inline-block;
+    padding: 5px;
+    margin: 5px 0;
+    transform: rotate(-3deg);
+    font-family: 'Comic Sans MS', sans-serif;
+}
+
+#bern-o-meter-container {
+    margin: 15px 0;
+    border: 1px dotted black;
+    padding: 10px;
+    width: 300px;
+    background: #fff8e1;
+}
+
+#bern-bar {
+    width: 100%;
+    height: 15px;
+    background-color: #eee;
+    border: 1px inset black;
+    margin-top: 5px;
+}
+
+#bern-fill {
+    width: 10%;
+    height: 100%;
+    background: linear-gradient(to right, #4caf50, #ffeb3b, #f44336);
+    transition: width 2s cubic-bezier(0.17, 0.67, 0.83, 0.67);
+}
+
+#breaking-news {
+    background: black;
+    color: #0f0;
+    font-family: 'Courier New', monospace;
+    padding: 8px;
+    font-size: 1.2rem;
+    font-weight: bold;
 }
