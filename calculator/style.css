@@ -1,8 +1,16 @@
 html {
     height: 100%;
     width: 100%;
+}
+
+html:not(.clean-mode) {
     filter: saturate(5);
     cursor: crosshair !important;
+}
+
+html.clean-mode {
+    filter: saturate(1.8);
+    cursor: crosshair;
 }
 
 body {
@@ -11,6 +19,7 @@ body {
     height: 100%;
     width: 100%;
     overflow: hidden;
+    font-family: "Comic Sans MS", cursive;
 }
 
 #calculator {
@@ -24,6 +33,13 @@ body {
     background-color: cyan;
     display: flex;
     align-items: center;
+    border-bottom: 2px solid black;
+}
+
+.clean-mode #nav {
+    background-color: #e0ffff;
+    /* subtle cyan */
+    border-color: #333;
 }
 
 .title {
@@ -38,48 +54,68 @@ body {
     width: 100px
 }
 
-.dcg-graph-outer {
-    filter: saturate(100) blur(0.9px);
+/* EYE-HURTY SPECIFIC STYLES */
 
+html:not(.clean-mode) .dcg-graph-outer {
+    filter: saturate(100) blur(0.9px);
+}
+
+html.clean-mode .dcg-graph-outer {
+    filter: saturate(2);
+}
+
+html:not(.clean-mode) .dcg-expressionlist {
+    background: hotpink;
+    border: 5px greenyellow dashed;
+}
+
+html.clean-mode .dcg-expressionlist {
+    background: #ffecf5;
+    /* Toned down pink */
+    border: 2px dashed hotpink;
 }
 
 .dcg-expressionlist {
-    background: hotpink;
     font-family: "Comic Sans MS";
     cursor: crosshair !important;
-    border: 5px greenyellow dashed;
-
 }
 
 .dcg-expressionlist * {
     cursor: crosshair;
     font-family: "Comic Sans MS";
-
 }
 
-.dcg-fade-container {
+html:not(.clean-mode) .dcg-fade-container {
     background: orange;
 }
 
-.dcg-btn-primary {
+html.clean-mode .dcg-fade-container {
+    background: #ffe5cc;
+    /* Toned down orange */
+}
+
+html:not(.clean-mode) .dcg-btn-primary {
     background: lime !important;
     border: 3px dashed red !important;
 }
 
-.dcg-mq-root-block var {
+html.clean-mode .dcg-btn-primary {
+    background: #d4ffd4 !important;
+    /* Toned down lime */
+    border: 1px solid #000 !important;
+}
+
+html:not(.clean-mode) .dcg-mq-root-block var {
     font-family: 'Comic Sans MS' !important;
     font-style: normal !important;
     font-weight: 800;
 }
 
-.dcg-btn-flat-gray
-
-/* will not be flat and gray anymore >:D */
-    {
+html:not(.clean-mode) .dcg-btn-flat-gray {
     background: cyan !important;
 }
 
-.dcg-grapher {
+html:not(.clean-mode) .dcg-grapher {
     background: chartreuse;
 }
 
@@ -104,6 +140,21 @@ body {
     transition: transform 0.1s, box-shadow 0.1s;
 }
 
+/* CLEAN MODE BUTTONS (now just LESS hurty) */
+.clean-mode .besmos-btn {
+    background: #fffacd;
+    /* Toned down yellow */
+    color: #333;
+    border: 2px solid #ff4500;
+    font-weight: normal;
+    padding: 6px 12px;
+    box-shadow: 2px 2px 0px black;
+}
+
+.clean-mode .besmos-btn:hover {
+    background: #fff;
+}
+
 .besmos-btn:hover {
     background: #ff0;
     transform: translate(-2px, -2px);
@@ -124,6 +175,12 @@ body {
     outline: none;
 }
 
+.clean-mode .besmos-input {
+    border: 2px dashed #00008b;
+    padding: 6px;
+    width: 200px;
+}
+
 .besmos-modal {
     background: hotpink;
     border: 10px double greenyellow;
@@ -134,9 +191,23 @@ body {
     font-family: "Comic Sans MS", cursive;
 }
 
+/* CLEAN MODE MODAL (now just LESS hurty) */
+.clean-mode .besmos-modal {
+    background: #fff0f5;
+    /* Lavender blush */
+    color: #333;
+    border: 5px double hotpink;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
 .besmos-modal::backdrop {
     background: rgba(0, 255, 255, 0.5);
     backdrop-filter: blur(5px);
+}
+
+.clean-mode .besmos-modal::backdrop {
+    background: rgba(0, 0, 0, 0.3);
 }
 
 .besmos-modal-header {
@@ -146,6 +217,14 @@ body {
     margin-bottom: 20px;
     border-bottom: 5px dotted yellow;
     padding-bottom: 10px;
+}
+
+.clean-mode .besmos-modal-header {
+    border-bottom: 3px dotted hotpink;
+}
+
+.clean-mode .besmos-modal-header h2 {
+    color: hotpink !important;
 }
 
 .besmos-list {
@@ -166,8 +245,18 @@ body {
     transition: border-color 0.2s;
 }
 
+.clean-mode .graph-card {
+    background: #fff;
+    border-color: #ffb6c1;
+    border-radius: 4px;
+}
+
 .graph-card:hover {
     border-color: yellow;
+}
+
+.clean-mode .graph-card:hover {
+    border-color: hotpink;
 }
 
 .graph-card img {
@@ -193,6 +282,10 @@ body {
     color: yellow;
 }
 
+.clean-mode .empty-state {
+    color: hotpink;
+}
+
 .besmos-toast {
     position: fixed;
     bottom: -100px;
@@ -209,6 +302,64 @@ body {
     transition: bottom 0.5s cubic-bezier(0.18, 0.89, 0.32, 1.28);
 }
 
+.clean-mode .besmos-toast {
+    background: #ffd1dc;
+    /* Toned down pink */
+    color: #000;
+    border: 3px solid hotpink;
+    border-radius: 8px;
+    font-size: 18px;
+    padding: 10px 20px;
+}
+
 .besmos-toast.show {
     bottom: 50px;
+}
+
+/* DARK MODE for Clean Mode */
+@media (prefers-color-scheme: dark) {
+    .clean-mode body {
+        background: #121212;
+        color: #e0e0e0;
+    }
+
+    .clean-mode #nav {
+        background: #1e1e1e;
+        border-color: #333;
+    }
+
+    .clean-mode .besmos-modal {
+        background: #1e1e1e;
+        color: #e0e0e0;
+        border-color: #333;
+    }
+
+    .clean-mode .besmos-modal-header h2 {
+        color: #e0e0e0 !important;
+    }
+
+    .clean-mode .besmos-btn {
+        background: #333;
+        color: #eee;
+        border-color: #444;
+    }
+
+    .clean-mode .besmos-btn:hover {
+        background: #444;
+    }
+
+    .clean-mode .besmos-input {
+        background: #1e1e1e;
+        color: #eee;
+        border-color: #333;
+    }
+
+    .clean-mode .graph-card {
+        background: #2a2a2a;
+        border-color: #333;
+    }
+
+    .clean-mode .besmos-modal-header {
+        border-color: #333;
+    }
 }

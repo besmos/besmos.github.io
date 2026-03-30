@@ -4,20 +4,79 @@ import { saveGraph, getGraph, getAllGraphs, deleteGraph } from './db.js';
 let calculator;
 let currentId = null;
 
-// Initialize Calculator
-const elt = document.getElementById('calculator');
-if (elt && window.Desmos) {
-    calculator = Desmos.GraphingCalculator(elt, {
-        keypad: true,
-        expressions: true,
-        settingsMenu: true,
-        expressionsTopbar: true,
-        autosize: true
+// UI Elements
+const saveBtn = document.getElementById('btn-save');
+const nameInput = document.getElementById('graph-name-input');
+const myGraphsBtn = document.getElementById('btn-my-graphs');
+const modal = document.getElementById('graph-list-dialog');
+const closeBtn = document.getElementById('btn-close-modal');
+const listEl = document.getElementById('saved-graphs-list');
+const eyeHurtyBtn = document.getElementById('btn-toggle-eye-hurty');
+const helpBtn = document.getElementById('helpBtn');
+
+async function initCalculator() {
+    console.log('🚀 Initializing Besmos Calculator...');
+    const elt = document.getElementById('calculator');
+
+    if (!elt) {
+        console.error('❌ Calculator container not found!');
+        return;
+    }
+
+    if (!window.Desmos) {
+        console.warn('⚠️ Desmos API not loaded! Waiting 1s and retrying...');
+        setTimeout(initCalculator, 1000);
+        return;
+    }
+
+    // Set height explicitly based on nav if CSS is being weird
+    elt.style.height = (window.innerHeight - 50) + 'px';
+    window.addEventListener('resize', () => {
+        elt.style.height = (window.innerHeight - 50) + 'px';
+        if (calculator) calculator.resize();
+    });
+
+    try {
+        calculator = Desmos.GraphingCalculator(elt, {
+            keypad: true,
+            expressions: true,
+            settingsMenu: true,
+            expressionsTopbar: true,
+            autosize: true
+        });
+        console.log('✅ Besmos Calculator ready!');
+
+        // Finalize initial load if hash is present
+        const hash = window.location.hash.substring(1);
+        if (hash) {
+            const g = await getGraph(hash);
+            if (g) loadGraph(g);
+        }
+    } catch (err) {
+        console.error('❌ Failed to create calculator:', err);
+    }
+}
+
+document.addEventListener('DOMContentLoaded', initCalculator);
+
+// Eye-Hurty Mode Toggle
+if (eyeHurtyBtn) {
+    // Load preference
+    if (localStorage.getItem('clean-mode') === 'true') {
+        document.documentElement.classList.add('clean-mode');
+        eyeHurtyBtn.textContent = 'EYE-HURTY: OFF';
+    }
+
+    eyeHurtyBtn.addEventListener('click', () => {
+        const isClean = document.documentElement.classList.toggle('clean-mode');
+        eyeHurtyBtn.textContent = isClean ? 'EYE-HURTY: OFF' : 'EYE-HURTY: ON';
+        localStorage.setItem('clean-mode', isClean);
+
+        if (calculator) calculator.resize();
     });
 }
 
 // Help Button Logic
-const helpBtn = document.getElementById('helpBtn');
 if (helpBtn) {
     helpBtn.addEventListener('click', () => {
         const query = prompt('WHAT DO YOU NEED HELP WITH? (ASK BERNARD)');
@@ -28,12 +87,12 @@ if (helpBtn) {
 }
 
 // Save Functionality
-const saveBtn = document.getElementById('btn-save');
-const nameInput = document.getElementById('graph-name-input');
-
 if (saveBtn) {
     saveBtn.addEventListener('click', async () => {
-        if (!calculator) return;
+        if (!calculator) {
+            showToast('CALCULATOR NOT READY !!');
+            return;
+        }
 
         const state = calculator.getState();
         let name = nameInput.value.trim() || 'UNTITLED MASTERPIECE';
@@ -63,11 +122,6 @@ if (saveBtn) {
 }
 
 // My Graphs Modal Logic
-const myGraphsBtn = document.getElementById('btn-my-graphs');
-const modal = document.getElementById('graph-list-dialog');
-const closeBtn = document.getElementById('btn-close-modal');
-const listEl = document.getElementById('saved-graphs-list');
-
 if (myGraphsBtn) {
     myGraphsBtn.addEventListener('click', async () => {
         await renderGraphList();
@@ -79,9 +133,11 @@ if (closeBtn) {
     closeBtn.addEventListener('click', () => modal.close());
 }
 
-modal.addEventListener('click', (e) => {
-    if (e.target === modal) modal.close();
-});
+if (modal) {
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) modal.close();
+    });
+}
 
 async function renderGraphList() {
     const graphs = await getAllGraphs();
@@ -125,7 +181,7 @@ async function renderGraphList() {
 function loadGraph(g) {
     if (!calculator) return;
     calculator.setState(g.state);
-    nameInput.value = g.name;
+    if (nameInput) nameInput.value = g.name;
     currentId = g.id;
     window.location.hash = g.id;
     showToast('LOADED !!');
@@ -162,14 +218,3 @@ function showToast(msg) {
     toast.classList.add('show');
     setTimeout(() => toast.classList.remove('show'), 2000);
 }
-
-// Initial Load check from hash
-window.addEventListener('load', async () => {
-    const hash = window.location.hash.substring(1);
-    if (hash) {
-        const g = await getGraph(hash);
-        if (g) {
-            loadGraph(g);
-        }
-    }
-});
