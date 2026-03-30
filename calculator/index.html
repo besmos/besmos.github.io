@@ -6,14 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Besmos Calculator</title>
     <link href="https://fonts.cdnfonts.com/css/comic-sans-ms" rel="stylesheet">
-    <script src="https://www.desmos.com/api/v1.11/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>
+    <script src="https://www.desmos.com/api/v1.12/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>
     <link rel="stylesheet" href="style.css">
 
 </head>
 
 <body>
     <nav id="nav">
-        <div id="buttons-left"></div>
+        <div id="buttons-left">
+            <input type="text" id="graph-name-input" placeholder="NAME YOUR MASTERPIECE..." class="besmos-input">
+            <button id="btn-save" class="besmos-btn">SAVE !!!</button>
+            <button id="btn-my-graphs" class="besmos-btn">MY GRAPHS</button>
+        </div>
         <div class="title">
             <svg version="1.1" class="dcg-desmos-svg-logo" id="svg-desmos" xmlns:xlink="http://www.w3.org/1999/xlink"
                 x="0px" y="0px" viewBox="0 0 909.3 188.4" xml:space="preserve">
@@ -51,13 +55,27 @@
                 </g>
             </svg>
         </div>
-        <div id="buttons-right"></div>
+        <div id="buttons-right">
+            <button id="helpBtn" class="besmos-btn" style="margin-right: 20px;">Help</button>
+        </div>
     </nav>
+
     <div id="calculator"></div>
-    <script>
-        var elt = document.getElementById('calculator');
-        var calculator = Desmos.GraphingCalculator(elt);
-    </script>
+
+    <dialog id="graph-list-dialog" class="besmos-modal">
+        <div class="besmos-modal-header">
+            <h2 style="margin: 0; color: lime;">YOUR EPIC GRAPHS</h2>
+            <button id="btn-close-modal" class="besmos-btn" style="padding: 5px 15px;">CLOSE</button>
+        </div>
+        <div id="saved-graphs-list" class="besmos-list">
+            <!-- Graphs will be rendered here -->
+            <div class="empty-state">Nothing here yet... GO MAKE SOMETHING!!</div>
+        </div>
+    </dialog>
+
+    <div id="toast" class="besmos-toast">SAVED !!</div>
+
+    <script type="module" src="script.js"></script>
 </body>
 
 </html>
